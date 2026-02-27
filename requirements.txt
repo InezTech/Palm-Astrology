@@ -8,3 +8,5 @@ python-dotenv
 reportlab
 pytest
 requests
+pyqtgraph
+PyOpenGL
