@@ -1,6 +1,6 @@
 # 🔮 Palm-Astrology: Enterprise Palmistry AI
 
-[![Build and Test](https://github.com/InezTech/Palm-Astrology/actions/workflows/build.yml/badge.svg)](https://github.com/InezTech/Palm-Astrology/actions)
+[![Build and Test CI](https://github.com/InezTech/Palm-Astrology/actions/workflows/build.yml/badge.svg)](https://github.com/InezTech/Palm-Astrology/actions/workflows/build.yml)
 [![Python Version](https://img.shields.io/badge/python-3.11-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -27,6 +27,16 @@ graph TD;
     Synthesizer --> ChatUI
 ```
 
+## 💻 Tech Stack
+
+- **Frontend / GUI**: PyQt6, PyQtGraph, OpenGL
+- **Computer Vision**: OpenCV (cv2), MediaPipe SDK
+- **AI / LLMs**: OpenAI (GPT-4o / Realtime API), LangChain concepts
+- **CI / CD**: GitHub Actions (Automated multi-os testing & code building)
+- **Reporting**: ReportLab (Automated PDF generation)
+
+---
+
 ## 🔥 Technical Highlights (The "Wow" Factor)
 
 ### 1. Multi-Agent Debate System
@@ -43,6 +53,9 @@ We don't just send images to an API. The `CVPipeline` performs real-time data ex
 ### 4. Professional Export System
 Users can export their comprehensive, synthesized multi-agent readings into beautifully formatted PDF reports using `ReportLab`, ideal for enterprise or clinical consulting environments.
 
+### 5. Robust CI/CD Pipeline
+Automated testing and compilation are handled via **GitHub Actions**. Every push runs tests on an isolated macOS runner, ensuring that cross-platform UI frameworks like `PyQt6` and dynamic libraries (`libGL`, `XCB`) are functioning correctly, avoiding the classic "it works on my machine" problem.
+
 ---
 
 ## 🛠️ Technical Challenges Overcome
@@ -50,22 +63,34 @@ Users can export their comprehensive, synthesized multi-agent readings into beau
 *   **Jitter in Real-time Processing:** Passing raw `MediaPipe` landmarks into the UI thread caused serious flickering. This was solved by separating the CV pipeline state from the PyQt `QTimer` UI loop, ensuring smooth 30FPS AR overlays and 3D rendering.
 *   **Multimodal Synthesis & Prompt Leaking:** Sending a high-res image to an LLM often results in generic responses. By pre-calculating the mathematical ratios and routing them through a multi-agent debate, the system grounds the model in hard deterministic data, eliminating AI hallucinations and ensuring clinical precision.
 
+---
+
 ## 🚀 Quick Start Setup
 
-1. **Clone and Install:**
+Ensure you have Python 3.11 installed.
+
+1. **Clone the Repository:**
 ```bash
 git clone https://github.com/InezTech/Palm-Astrology.git
 cd Palm-Astrology
-python3 -m venv venv
+```
+
+2. **Set up the Virtual Environment & Dependencies:**
+```bash
+python3.11 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. **Configure Environment:**
-Create a `.env` file (or use the in-app Settings UI) to add your API keys. Make sure your `CAMERA_INDEX` is set correctly for your setup.
+3. **Configure the Environment:**
+Create a `.env` file in the root directory and add your keys:
+```env
+OPENAI_API_KEY=your_api_key_here
+CAMERA_INDEX=0
+```
 
-3. **Launch the Application:**
+4. **Launch the Application:**
 ```bash
 export PYTHONPATH=.
-python app.py
+python src/main.py
 ```
